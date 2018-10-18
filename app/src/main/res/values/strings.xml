@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyListFragment</string>
+    <string name="empty">Нет данных</string>
+</resources>
