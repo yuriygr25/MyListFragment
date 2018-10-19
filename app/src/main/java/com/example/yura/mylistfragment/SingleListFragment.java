@@ -3,6 +3,7 @@ package com.example.yura.mylistfragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +13,36 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SingleListFragment extends ListFragment {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class SingleListFragment extends ListFragment  {
 
     // определяем массив типа String
     final String[] catNames = new String[]{"Рыжик", "Барсик", "Мурзик",
             "Мурка", "Васька", "Томасина", "Кристина", "Пушок", "Дымка",
             "Кузя", "Китти", "Масяня", "Симба"};
 
+
+    private ArrayAdapter<String> mAdapter;
+
+    private ArrayList<String> catNamesList = new ArrayList<>(Arrays.asList(catNames));
+
+    private String flag="0";
+
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        MyListAdapter myListAdapter = new MyListAdapter(getActivity(),
-                R.layout.listfragment_row, catNames);
-        setListAdapter(myListAdapter);
+        flag="1";
+        if (flag.equals("1")) {
+            mAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_multiple_choice, catNamesList);
+        } else {
+            mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, catNamesList);
+        }
+        setListAdapter(mAdapter);
+        //getListView().setOnItemLongClickListener(getActivity());
     }
 
     @Override
@@ -34,6 +51,38 @@ public class SingleListFragment extends ListFragment {
         return inflater.inflate(R.layout.listfragment, null);
     }
 
+
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        if (flag.equals("0"))
+        {
+            Toast.makeText(getActivity(),
+                    getListView().getItemAtPosition(position).toString(),
+                    Toast.LENGTH_LONG).show();
+        } else
+        {
+            String prompt = "Вы выбрали: "
+                    + getListView().getItemAtPosition(position).toString() + "\n";
+
+            prompt += "Выбранные элементы: \n";
+            int count = getListView().getCount();
+            SparseBooleanArray sparseBooleanArray = getListView()
+                    .getCheckedItemPositions();
+            for (int i = 0; i < count; i++) {
+                String ww=getListView().getItemAtPosition(1).toString();
+
+                if (getListView().getItemAtPosition(i).equals(true)) {
+                    prompt += getListView().getItemAtPosition(i).toString() + "\n";
+                }
+            }
+            Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+/*
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -42,6 +91,7 @@ public class SingleListFragment extends ListFragment {
                 getListView().getItemAtPosition(position).toString(),
                 Toast.LENGTH_LONG).show();
     }
+*/
 
     public class MyListAdapter extends ArrayAdapter<String> {
 
