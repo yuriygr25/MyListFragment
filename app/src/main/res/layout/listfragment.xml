@@ -21,4 +21,15 @@
         android:text="@string/empty" >
     </TextView>
 
+<!--
+    <CheckedTextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:button="@null"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple">
+    </CheckedTextView>
+-->
+
 </LinearLayout>
