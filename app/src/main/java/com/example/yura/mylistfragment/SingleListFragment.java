@@ -35,7 +35,9 @@ public class SingleListFragment extends ListFragment  {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        flag="1";
+
+        SecondActivity act = (SecondActivity) getActivity();
+        flag=act.GetFlag();
         if (flag.equals("1")) {
             mAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_multiple_choice, catNamesList);
         } else {
@@ -71,6 +73,24 @@ public class SingleListFragment extends ListFragment  {
             SparseBooleanArray sparseBooleanArray = getListView()
                     .getCheckedItemPositions();
             for (int i = 0; i < count; i++) {
+                if (sparseBooleanArray.get(i)) {
+                    prompt += getListView().getItemAtPosition(i).toString() + "\n";
+                }
+            }
+            Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+        }
+
+
+
+            /*
+            String prompt = "Вы выбрали: "
+                    + getListView().getItemAtPosition(position).toString() + "\n";
+
+            prompt += "Выбранные элементы: \n";
+            int count = getListView().getCount();
+            SparseBooleanArray sparseBooleanArray = getListView()
+                    .getCheckedItemPositions();
+            for (int i = 0; i < count; i++) {
                 String ww=getListView().getItemAtPosition(1).toString();
 
                 if (getListView().getItemAtPosition(i).equals(true)) {
@@ -78,8 +98,9 @@ public class SingleListFragment extends ListFragment  {
                 }
             }
             Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
-        }
 
+        }
+*/
     }
 
 /*

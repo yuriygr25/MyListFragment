@@ -9,7 +9,9 @@
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FF00">
+        android:background="#00FF00"
+        android:choiceMode="multipleChoice"
+        android:drawSelectorOnTop="false">
     </ListView>
 
     <TextView
